@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Powerful Kitchen | Bangalore's Leading Caterer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --brand: #FF5722; --dark: #0A0A0A; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--dark); color: white; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        .step-hidden { display: none; opacity: 0; }
+        .gradient-border { border-left: 4px solid; border-image: linear-gradient(to bottom, #FF5722, #FFC107) 1; }
+        .swiper-pagination-bullet-active { background: #FF5722 !important; }
+    </style>
+</head>
+<body>
+
+    <section class="relative h-[90vh] flex items-center justify-center text-center px-6">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1555244162-803834f70033?q=80" class="w-full h-full object-cover opacity-30">
+        </div>
+        <div class="relative z-10 max-w-4xl">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 italic" style="font-family: 'Playfair Display'">Powering Your <span class="text-orange-500">Big Moments</span></h1>
+            <p class="text-xl text-gray-400 mb-10">Premium Catering starting at 40 Guests • Serving Bangalore Only</p>
+            <a href="#quote-box" class="bg-orange-600 px-10 py-5 rounded-full font-bold text-lg hover:bg-orange-700 transition-all shadow-xl shadow-orange-500/20">Check Availability</a>
+        </div>
+    </section>
+
+    <section id="quote-box" class="py-20 px-6">
+        <div class="max-w-xl mx-auto glass p-8 md:p-12 rounded-[2rem]">
+            <div id="form-progress" class="w-full bg-white/10 h-1 mb-8 rounded-full">
+                <div id="progress-bar" class="bg-orange-600 h-1 w-1/3 transition-all duration-500"></div>
+            </div>
+
+            <form id="powerfulForm">
+                <div id="step1" class="space-y-6">
+                    <h2 class="text-2xl font-bold">Where is the event?</h2>
+                    <p class="text-gray-400 text-sm italic">Note: We serve Bangalore only for peak freshness.</p>
+                    <button type="button" onclick="toStep2(true)" class="w-full p-6 glass rounded-2xl hover:border-orange-500 transition-all text-left flex justify-between items-center group">
+                        Inside Bangalore 📍 <span class="group-hover:translate-x-2 transition">→</span>
+                    </button>
+                    <button type="button" onclick="deny('location')" class="w-full p-6 glass rounded-2xl opacity-40 text-left">Outside Bangalore</button>
+                </div>
+
+                <div id="step2" class="step-hidden space-y-6 text-center">
+                    <h2 class="text-2xl font-bold">Estimated Guest Count?</h2>
+                    <p class="text-gray-400">Our kitchen specializes in events of 40+</p>
+                    <input type="number" id="guestCount" placeholder="Enter guests (e.g. 100)" class="w-full bg-white/5 border border-white/20 p-6 rounded-2xl text-2xl text-center focus:border-orange-500 outline-none">
+                    <button type="button" onclick="toStep3()" class="w-full bg-orange-600 p-5 rounded-2xl font-bold text-lg">Next Step</button>
+                </div>
+
+                <div id="step3" class="step-hidden space-y-4 text-center">
+                    <h2 class="text-2xl font-bold">Select Event Type</h2>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button type="button" onclick="finalStep()" class="p-4 glass rounded-xl text-sm hover:bg-orange-600">Wedding</button>
+                        <button type="button" onclick="finalStep()" class="p-4 glass rounded-xl text-sm hover:bg-orange-600">Corporate</button>
+                        <button type="button" onclick="finalStep()" class="p-4 glass rounded-xl text-sm hover:bg-orange-600">Birthday</button>
+                        <button type="button" onclick="finalStep()" class="p-4 glass rounded-xl text-sm hover:bg-orange-600">Baby Shower</button>
+                    </div>
+                </div>
+
+                <div id="step4" class="step-hidden space-y-4">
+                    <h2 class="text-2xl font-bold">Success! Enter Details</h2>
+                    <input type="text" placeholder="Full Name" class="w-full bg-white/5 border border-white/20 p-5 rounded-xl outline-none">
+                    <input type="tel" placeholder="WhatsApp Number" class="w-full bg-white/5 border border-white/20 p-5 rounded-xl outline-none">
+                    <input type="email" placeholder="Email Address" class="w-full bg-white/5 border border-white/20 p-5 rounded-xl outline-none">
+                    <button type="submit" class="w-full bg-orange-600 p-5 rounded-xl font-bold text-lg">Send My Custom Quote</button>
+                </div>
+
+                <div id="denialMsg" class="step-hidden text-center py-10">
+                    <p id="denialText" class="text-gray-400"></p>
+                    <button type="button" onclick="location.reload()" class="mt-6 text-orange-500 underline">Start Over</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="py-20 bg-zinc-900">
+        <h2 class="text-center text-4xl font-bold mb-12">Inside Our <span class="text-orange-500">Real Events</span></h2>
+        <div class="swiper eventSwiper max-w-5xl mx-auto px-6">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80" class="rounded-3xl h-[400px] w-full object-cover"></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80" class="rounded-3xl h-[400px] w-full object-cover"></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80" class="rounded-3xl h-[400px] w-full object-cover"></div>
+            </div>
+            <div class="swiper-pagination mt-10"></div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 max-w-6xl mx-auto">
+        <h2 class="text-center text-4xl font-bold mb-16">Expert Catering For</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-all">
+                <div class="text-4xl mb-4">💍</div>
+                <h3 class="text-xl font-bold mb-2">Grand Weddings</h3>
+                <p class="text-gray-400 text-sm">Full-service buffet & sit-down meals for your big day.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-all border-b-4 border-orange-500">
+                <div class="text-4xl mb-4">🏢</div>
+                <h3 class="text-xl font-bold mb-2">Corporate Events</h3>
+                <p class="text-gray-400 text-sm">Daily office meals and special high-end VIP events.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-all">
+                <div class="text-4xl mb-4">👶</div>
+                <h3 class="text-xl font-bold mb-2">Baby Showers</h3>
+                <p class="text-gray-400 text-sm">Traditional menus that taste like home.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-all">
+                <div class="text-4xl mb-4">🎂</div>
+                <h3 class="text-xl font-bold mb-2">Birthdays</h3>
+                <p class="text-gray-400 text-sm">Exciting live counters and fun-filled party snacks.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-all">
+                <div class="text-4xl mb-4">🏡</div>
+                <h3 class="text-xl font-bold mb-2">Family Functions</h3>
+                <p class="text-gray-400 text-sm">From housewarmings to anniversaries.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-all">
+                <div class="text-4xl mb-4">🍛</div>
+                <h3 class="text-xl font-bold mb-2">Daily Office Meals</h3>
+                <p class="text-gray-400 text-sm">Consistent quality for your hard-working team.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-black px-6">
+        <h2 class="text-center text-4xl font-bold mb-16">What Bangalore Says</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="glass p-8 rounded-2xl gradient-border">
+                <div class="flex text-yellow-500 mb-4">★★★★★</div>
+                <p class="text-gray-300 italic mb-6">"The Bengali menu was authentic! Our guests loved the fish curry. Handled our 200-person housewarming effortlessly."</p>
+                <p class="font-bold">- Rajesh M., <span class="text-orange-500">Indiranagar</span></p>
+            </div>
+            <div class="glass p-8 rounded-2xl gradient-border">
+                <div class="flex text-yellow-500 mb-4">★★★★★</div>
+                <p class="text-gray-300 italic mb-6">"Best corporate lunch we've had in Electronic City. The Biryani was perfectly spiced and delivered hot for 80 people."</p>
+                <p class="font-bold">- Sonal K., <span class="text-orange-500">Tech Park Manager</span></p>
+            </div>
+            <div class="glass p-8 rounded-2xl gradient-border">
+                <div class="flex text-yellow-500 mb-4">★★★★★</div>
+                <p class="text-gray-300 italic mb-6">"Amazing service for my baby shower. The traditional South Indian spread was divine. Guests still talk about the Payasam!"</p>
+                <p class="font-bold">- Meera V., <span class="text-orange-500">Jayanagar</span></p>
+            </div>
+            <div class="glass p-8 rounded-2xl gradient-border">
+                <div class="flex text-yellow-500 mb-4">★★★★★</div>
+                <p class="text-gray-300 italic mb-6">"Professional and punctual. We hired them for a 150-guest birthday party. Live chaat counters were the highlight!"</p>
+                <p class="font-bold">- Amit Sharma, <span class="text-orange-500">Whitefield</span></p>
+            </div>
+            <div class="glass p-8 rounded-2xl gradient-border">
+                <div class="flex text-yellow-500 mb-4">★★★★★</div>
+                <p class="text-gray-300 italic mb-6">"Managed our complex wedding menu across 3 days. Highly recommend for anyone looking for quality at scale."</p>
+                <p class="font-bold">- Deepa R., <span class="text-orange-500">Koramangala</span></p>
+            </div>
+            <div class="glass p-8 rounded-2xl gradient-border">
+                <div class="flex text-yellow-500 mb-4">★★★★★</div>
+                <p class="text-gray-300 italic mb-6">"Their attention to hygiene and presentation is top-notch. Truly the most 'Powerful' kitchen in Bangalore."</p>
+                <p class="font-bold">- Vikram, <span class="text-orange-500">HSR Layout</span></p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-gray-600 border-t border-white/5">
+        <p>© 2026 The Powerful Kitchen | Electronic City Phase 1 | Bangalore</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper(".eventSwiper", { pagination: { el: ".swiper-pagination" }, autoplay: true });
+
+        function toStep2(isBlr) {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+            document.getElementById('progress-bar').style.width = '66%';
+            gsap.from("#step2", { opacity: 0, y: 20 });
+        }
+
+        function toStep3() {
+            const count = document.getElementById('guestCount').value;
+            if (count < 40) {
+                deny('guests');
+            } else {
+                document.getElementById('step2').style.display = 'none';
+                document.getElementById('step3').style.display = 'block';
+                document.getElementById('progress-bar').style.width = '80%';
+                gsap.from("#step3", { opacity: 0, y: 20 });
+            }
+        }
+
+        function finalStep() {
+            document.getElementById('step3').style.display = 'none';
+            document.getElementById('step4').style.display = 'block';
+            document.getElementById('progress-bar').style.width = '100%';
+            gsap.from("#step4", { opacity: 0, y: 20 });
+        }
+
+        function deny(type) {
+            let txt = type === 'location' ? "We only serve Bangalore to keep food fresh." : "We specialize in events of 40 guests or more.";
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('denialMsg').style.display = 'block';
+            document.getElementById('denialText').innerText = txt;
+        }
+    </script>
+</body>
+</html>
